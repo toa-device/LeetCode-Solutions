@@ -45,6 +45,63 @@ std::vector<int> twoSum(std::vector<int>& nums, int target) {
 
     You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 */
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    ListNode* lnTemp = new ListNode();
+    ListNode* lnTrack = lnTemp;
+    int total = 0, carry = 0;
+
+    while ( (l1 != nullptr) || (l2 != nullptr) || carry)
+    {
+        total = carry;
+
+        if (l1 != nullptr)
+        {
+            total += l1->val;
+            l1 = l1->next;
+        }
+        if (l2 != nullptr)
+        {
+            total += l2->val;
+            l2 = l2->next;
+        }
+
+        int num = total % 10;
+        carry = total / 10;
+        lnTemp->next = new ListNode(num);
+        lnTemp = lnTemp->next;
+    }
+
+    ListNode* result = lnTrack->next;
+    delete lnTrack;
+    lnTrack = nullptr;
+    return result;
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+    Problem #3 - Longest Substring Without Repeating Characters (Medium)
+    -----------------------------------------------------------
+    Given a string s, find the length of the longest substring without duplicate characters.
+*/
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+    Problem #4 - Median of Two Sorted Arrays (Hard)
+    ----------------------------------------
+    Given two sorted arrays "nums1" and "nums2" of size m and n respectively, return the median of the two sorted arrays.
+
+    The overall run time complexity should be O(log (m+n)).
+*/
+double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2) {
+    std::vector<int> temp(nums1.size() + nums2.size());
+    
+    // could've been implemented on my own, rather than using a C++ library algorithm - Vinh Feb. 26, 2025
+    std::merge(nums1.begin(), nums1.end(), nums2.begin(), nums2.end(), temp.begin());
+
+    int size = temp.size();
+    bool oddSize = (size % 2 == 1) ? true : false;
+    if (oddSize) return (temp[size / 2.0]);
+    else return ( (temp[(size / 2) - 1] + temp[size / 2]) / 2.0);
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /*

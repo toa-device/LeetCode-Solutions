@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 // Definition for singly-linked list
 struct ListNode {
